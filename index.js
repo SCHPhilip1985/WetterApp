@@ -12,7 +12,7 @@ weatherForm.addEventListener("submit", async event => {
     if(city){
         try{
             const weatherData = await getWeatherData(city);
-            displayWeatherInfo(weatherData)
+            displayWeatherInfo(weatherData);
         }
         catch(error){
             console.error(error);
@@ -52,19 +52,44 @@ function displayWeatherInfo(data){
 
     cityDisplay.textContent = city;
     tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
-    humidityDisplay.textContent = `Humidity: ${humidity}`;
+    humidityDisplay.textContent = `Luftfeuchtigkeit: ${humidity}%`;
+    descDisplay.textContent = description;
+    weatherEmoji.textContent = getWeatherEmoji(id);
+
 
     cityDisplay.classList.add("cityDisplay");
     tempDisplay.classList.add("tempDisplay")
-    humidityDisplay.classList.List.add("humidityDisplay");
+    humidityDisplay.classList.add("humidityDisplay");
+    descDisplay.classList.add("descDisplay");
+    weatherEmoji.classList.add("weatherEmoji");
 
     card.appendChild(cityDisplay);
     card.appendChild(tempDisplay);
     card.appendChild(humidityDisplay);
+    card.appendChild(descDisplay);
+    card.appendChild(weatherEmoji);
 
 }
 
-function getWeatherEmoji(weatherID){
+function getWeatherEmoji(weatherId){
+
+    switch(true){
+        case (weatherId >= 200 && weatherId < 300):
+            return "thunder"; 
+        case (weatherId >= 300 && weatherId < 400):
+            return "rain"; 
+        case (weatherId >= 500 && weatherId < 600):
+            return "dizzy"; 
+        case (weatherId >= 600 && weatherId < 700):
+            return "snow"; 
+        case (weatherId >= 700 && weatherId < 800):
+            return "fog"; 
+        case (weatherId === 800):
+            return "sun"; 
+        case (weatherId >= 801 && weatherId < 810):
+            return "thunder"; 
+            
+    }
 
 }
 
